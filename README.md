@@ -1,3 +1,5 @@
+Clone of https://github.com/hashgraph/hedera-wallet-connect with a method to sign message as plaintext
+
 # Overview
 
 This library is the result of Hedera community collaboration to bring Hedera into the
