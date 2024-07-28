@@ -138,6 +138,31 @@ export class DAppSigner implements Signer {
     return this.call(new AccountRecordsQuery().setAccountId(this.accountId))
   }
 
+  async signPlaintext(
+    data: string[],
+    signOptions?: Record<string, any>,
+  ): Promise<SignerSignature[]> {
+    const { signatureMap } = await this.request<SignTransactionResult['result']>({
+      method: HederaJsonRpcMethod.SignMessage,
+      params: {
+        signerAccountId: this._signerAccountId,
+        message: data[0],
+      },
+    })
+
+    const sigmap = base64StringToSignatureMap(signatureMap)
+
+    const signerSignature = new SignerSignature({
+      accountId: this.getAccountId(),
+      publicKey: PublicKey.fromBytes(sigmap.sigPair[0].pubKeyPrefix as Uint8Array),
+      signature:
+        (sigmap.sigPair[0].ed25519 as Uint8Array) ||
+        (sigmap.sigPair[0].ECDSASecp256k1 as Uint8Array),
+    })
+
+    return [signerSignature]
+  }
+
   async sign(
     data: Uint8Array[],
     signOptions?: Record<string, any>,
