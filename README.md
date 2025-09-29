@@ -257,6 +257,13 @@ Wallets that are compatible should be able to receive and respond to the followi
 - `"hedera-extension-connect-<extensionId>"`: The extension must listen to this message and
   utilize the `pairingString` property in order to establish a connection.
 
+## WalletKit / WalletConnect v2 Integration
+
+- Install dependencies:
+  ```bash
+  npm install @walletconnect/ethereum-provider @walletconnect/web3wallet ethers
+
+
 This communication protocol between the wallet and web dApps requires an intermediate script to
 use the Chrome API. Refer to the
 [Chrome Extensions documentation](https://developer.chrome.com/docs/extensions/develop/concepts/messaging)
